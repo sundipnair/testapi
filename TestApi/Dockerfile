@@ -10,10 +10,10 @@ COPY . .
 WORKDIR "/src/TestApi"
 RUN dotnet build "TestApi.csproj" -c Release -o /app
 
-FROM build AS publish
-RUN dotnet publish "TestApi.csproj" -c Release -o /app
+#FROM build AS publish
+#RUN dotnet publish "TestApi.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "TestApi.dll"]
