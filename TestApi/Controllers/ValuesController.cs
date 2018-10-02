@@ -16,10 +16,10 @@ namespace TestApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            IEnumerable<string> list = GetDataAsync().Result;
-            list.ToList().Add("sundip");
-            list.ToList().Add("jack");
-            list.ToList().Add("sam");
+            List<string> list = GetDataAsync().Result.ToList();
+            list.Add("sundip");
+            list.Add("jack");
+            list.Add("sam");
             return list;
         }
 
