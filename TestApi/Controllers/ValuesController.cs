@@ -22,8 +22,8 @@ namespace TestApi.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                //var result = await client.GetAsync("https://services.odata.org/TripPinRESTierService/People");
-                var result = await client.GetAsync("http://test-testgo:8080/go-docker");
+                HttpResponseMessage response = await client.GetAsync("http://testapi2:80/api/values");
+                response.EnsureSuccessStatusCode();
             }
         }
 
