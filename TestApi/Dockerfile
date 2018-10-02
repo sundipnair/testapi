@@ -4,7 +4,7 @@ EXPOSE 80
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
-COPY ["TestApi/TestApi.csproj", "TestApi/"]
+COPY ["TestApi.csproj", "TestApi/"]
 RUN dotnet restore "TestApi/TestApi.csproj"
 WORKDIR "/src/TestApi"
 COPY . .
