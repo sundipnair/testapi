@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,16 +16,17 @@ namespace TestApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            GetDataAsync();
-            return new string[] { "value1", "value2" };
+            return GetDataAsync().Result;
+            //return new string[] { "value1", "value2" };
         }
 
-        private async Task GetDataAsync()
+        private async Task<IEnumerable<string>> GetDataAsync()
         {
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync("http://testapi2:80/api/values");
                 response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsAsync<IEnumerable<string>>();
             }
         }
 
