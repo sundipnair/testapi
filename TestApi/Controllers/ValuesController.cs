@@ -16,8 +16,11 @@ namespace TestApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return GetDataAsync().Result;
-            //return new string[] { "value1", "value2" };
+            IEnumerable<string> list = GetDataAsync().Result;
+            list.ToList().Add("sundip");
+            list.ToList().Add("john");
+            list.ToList().Add("tor");
+            return list;
         }
 
         private async Task<IEnumerable<string>> GetDataAsync()
