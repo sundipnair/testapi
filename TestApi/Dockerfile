@@ -4,16 +4,16 @@ EXPOSE 80
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
-COPY ["TestApi.csproj", "TestApi/"]
+COPY ["TestApi/TestApi.csproj", "TestApi/"]
 RUN dotnet restore "TestApi/TestApi.csproj"
-COPY . .
 WORKDIR "/src/TestApi"
+COPY . .
 RUN dotnet build "TestApi.csproj" -c Release -o /app
 
-#FROM build AS publish
-#RUN dotnet publish "TestApi.csproj" -c Release -o /app
+FROM build AS publish
+RUN dotnet publish "TestApi.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "TestApi.dll"]
