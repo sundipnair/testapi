@@ -18,8 +18,8 @@ namespace TestApi.Controllers
         {
             IEnumerable<string> list = GetDataAsync().Result;
             list.ToList().Add("sundip");
-            list.ToList().Add("john");
-            list.ToList().Add("tor");
+            list.ToList().Add("jack");
+            list.ToList().Add("sam");
             return list;
         }
 
