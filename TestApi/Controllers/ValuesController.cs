@@ -12,6 +12,8 @@ namespace TestApi.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private string testapi2 = "http://testapi2:80/";
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -25,8 +27,7 @@ namespace TestApi.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync("http://testapi2:80/api/values");
-                //HttpResponseMessage response = await client.GetAsync("http://localhost:32772/api/values");
+                HttpResponseMessage response = await client.GetAsync($"{testapi2}api/values");
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<IEnumerable<string>>();
             }
@@ -36,25 +37,45 @@ namespace TestApi.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.GetAsync($"{testapi2}api/values/{id}").Result;
+                response.EnsureSuccessStatusCode();
+                return response.Content.ReadAsAsync<string>().Result;
+            }
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.PostAsync($"{testapi2}api/values", new StreamContent(Request.Body)).Result;
+                response.EnsureSuccessStatusCode();
+            }
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.PostAsync($"{testapi2}api/values/{id}", new StreamContent(Request.Body)).Result;
+                response.EnsureSuccessStatusCode();
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.DeleteAsync($"{testapi2}api/values/{id}").Result;
+                response.EnsureSuccessStatusCode();
+            }
         }
     }
 }
