@@ -17,9 +17,7 @@ namespace TestApi.Controllers
         public IEnumerable<string> Get()
         {
             List<string> list = GetDataAsync().Result.ToList();
-            list.Add("sundip");
-            list.Add("jack");
-            list.Add("sam");
+            list.Add("harry");
             return list;
         }
 
