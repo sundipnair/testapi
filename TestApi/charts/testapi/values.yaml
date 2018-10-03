@@ -17,8 +17,7 @@ imagePullSecrets:
 service:
   name: testapi
   type: LoadBalancer
-  externalPort: 80
-  internalPort: 80
+  port: 80
 
 probes:
   enabled: false

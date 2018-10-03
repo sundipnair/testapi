@@ -28,6 +28,7 @@ namespace TestApi.Controllers
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync("http://testapi2:80/api/values");
+                //HttpResponseMessage response = await client.GetAsync("http://localhost:32772/api/values");
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsAsync<IEnumerable<string>>();
             }
